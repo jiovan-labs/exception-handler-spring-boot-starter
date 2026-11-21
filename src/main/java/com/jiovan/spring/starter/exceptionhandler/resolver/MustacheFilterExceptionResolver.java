@@ -39,6 +39,7 @@ import lombok.SneakyThrows;
  * {@link org.springframework.web.servlet.HandlerExceptionResolver} of mustache for exception handler
  *
  * @author David Hsing
+ *
  * @see org.springframework.boot.mustache.autoconfigure.MustacheAutoConfiguration
  * @see org.springframework.boot.mustache.servlet.view.MustacheView
  * @see org.springframework.boot.mustache.servlet.view.MustacheViewResolver

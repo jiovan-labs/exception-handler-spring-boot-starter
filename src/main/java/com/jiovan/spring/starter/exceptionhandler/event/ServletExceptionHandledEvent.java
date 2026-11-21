@@ -31,6 +31,7 @@ import lombok.Getter;
  * Event when error occurred in controllers
  *
  * @author David Hsing
+ *
  * @see org.springframework.web.context.support.ServletRequestHandledEvent
  */
 @Getter

@@ -39,6 +39,7 @@ import lombok.SneakyThrows;
  * {@link org.springframework.web.servlet.HandlerExceptionResolver} of thymeleaf for exception handler
  *
  * @author David Hsing
+ *
  * @see org.springframework.boot.thymeleaf.autoconfigure.ThymeleafAutoConfiguration
  * @see org.thymeleaf.spring6.view.AbstractThymeleafView
  * @see org.thymeleaf.spring6.view.ThymeleafViewResolver

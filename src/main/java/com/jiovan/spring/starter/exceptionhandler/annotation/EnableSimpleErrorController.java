@@ -31,6 +31,7 @@ import com.jiovan.spring.starter.exceptionhandler.registrar.SimpleErrorControlle
  * Annotation that allows a simple error controller
  *
  * @author David Hsing
+ *
  * @see com.jiovan.spring.starter.exceptionhandler.controller.SimpleBasicErrorController
  * @see com.jiovan.spring.starter.exceptionhandler.registrar.SimpleErrorControllerRegistrar
  */

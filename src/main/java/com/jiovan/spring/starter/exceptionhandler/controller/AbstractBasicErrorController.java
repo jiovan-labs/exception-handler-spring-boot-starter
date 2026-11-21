@@ -68,6 +68,7 @@ import lombok.Setter;
  * If using thymeleaf, please set the property "spring.thymeleaf.servlet.produce-partial-output-while-processing" to {@code false}
  *
  * @author David Hsing
+ *
  * @see "http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-error-handling"
  * @see "http://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc"
  * @see org.springframework.boot.webmvc.error.ErrorController

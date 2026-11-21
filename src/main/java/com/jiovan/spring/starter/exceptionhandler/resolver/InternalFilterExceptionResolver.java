@@ -39,6 +39,7 @@ import lombok.SneakyThrows;
  * {@link org.springframework.web.servlet.HandlerExceptionResolver} of internal resource for exception handler
  *
  * @author David Hsing
+ *
  * @see org.springframework.web.servlet.view.InternalResourceView
  * @see org.springframework.web.servlet.view.InternalResourceViewResolver
  */

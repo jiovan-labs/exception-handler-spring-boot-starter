@@ -59,6 +59,7 @@ import com.jiovan.spring.starter.exceptionhandler.resolver.ThymeleafFilterExcept
  * Configuration of exception handler
  *
  * @author David Hsing
+ *
  * @see org.springframework.boot.webmvc.autoconfigure.error.ErrorMvcAutoConfiguration
  * @see org.springframework.boot.web.servlet.support.ErrorPageFilter
  */

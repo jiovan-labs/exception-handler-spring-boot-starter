@@ -33,6 +33,7 @@ import lombok.Setter;
  * Simple error controller that inherits from the default one
  *
  * @author David Hsing
+ *
  * @see com.jiovan.spring.starter.exceptionhandler.controller.DefaultBasicErrorController
  */
 @Getter

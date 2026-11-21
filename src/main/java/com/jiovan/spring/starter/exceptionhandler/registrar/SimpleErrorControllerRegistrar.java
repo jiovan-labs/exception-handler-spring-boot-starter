@@ -40,6 +40,7 @@ import com.jiovan.spring.starter.exceptionhandler.controller.SimpleBasicErrorCon
  * Registrar of exception handler that allows a simple error controller
  *
  * @author David Hsing
+ *
  * @see org.springframework.context.annotation.ImportAware
  * @see org.springframework.context.annotation.ImportBeanDefinitionRegistrar
  * @see org.springframework.boot.webmvc.autoconfigure.error.ErrorMvcAutoConfiguration

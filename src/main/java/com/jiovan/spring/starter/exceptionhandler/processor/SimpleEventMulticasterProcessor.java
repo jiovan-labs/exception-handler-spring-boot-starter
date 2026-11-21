@@ -34,6 +34,7 @@ import lombok.Setter;
  * {@link org.springframework.beans.factory.config.BeanPostProcessor} for {@link org.springframework.context.event.SimpleApplicationEventMulticaster}
  *
  * @author David Hsing
+ *
  * @see org.springframework.context.event.SimpleApplicationEventMulticaster
  */
 @Getter

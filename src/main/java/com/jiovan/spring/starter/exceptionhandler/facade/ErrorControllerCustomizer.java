@@ -29,6 +29,7 @@ import com.jiovan.spring.starter.exceptionhandler.util.ErrorControllerUtils;
  * Facade interface for customizing {@link com.jiovan.spring.starter.exceptionhandler.controller.DefaultBasicErrorController}
  *
  * @author David Hsing
+ *
  * @see com.jiovan.spring.starter.exceptionhandler.controller.DefaultBasicErrorController
  */
 @SuppressWarnings({"unused", "SameReturnValue"})

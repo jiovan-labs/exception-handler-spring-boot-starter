@@ -74,6 +74,7 @@ public class ExceptionHandlerProperties implements Serializable {
      * Properties for handle exception filter
      *
      * @author David Hsing
+     *
      * @see com.jiovan.spring.starter.exceptionhandler.filter.FilterExceptionHandlerFilter
      */
     @Getter
@@ -108,6 +109,7 @@ public class ExceptionHandlerProperties implements Serializable {
      * Properties for handle exception resolver
      *
      * @author David Hsing
+     *
      * @see com.jiovan.spring.starter.exceptionhandler.resolver.AbstractFilterExceptionResolver
      */
     @Getter
@@ -143,6 +145,7 @@ public class ExceptionHandlerProperties implements Serializable {
      * Used to detect the request locale for displaying multilingual errors
      *
      * @author David Hsing
+     *
      * @see "https://github.com/jiovan-labs/localization-spring-boot-starter"
      */
     @Getter
