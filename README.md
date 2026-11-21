@@ -8,18 +8,18 @@ Spring Boot application enables a global exception handler, to handle exceptions
 
 ```xml
     <dependency>
-        <groupId>cn.unikue.springstarter</groupId>
+        <groupId>com.jiovan.spring.starter</groupId>
         <artifactId>exception-handler-spring-boot-starter</artifactId>
         <version>LATEST</version>
     </dependency>
 ```
 
-> By default, this starter will auto take effect, you can turn it off by `spring.exception-handler.enabled = false`
+> By default, this starter will auto take effect, you can turn it off by `jiovan.exception-handler.enabled = false`
 
-- Configure Spring Boot `application.yml` with prefix `spring.exception-handler` (**Optional**)
+- Configure Spring Boot `application.yml` with prefix `jiovan.exception-handler` (**Optional**)
 
 ```yml
-spring:
+jiovan:
     exception-handler:
         exception-filter:
             filter-paths:
@@ -47,7 +47,7 @@ spring:
 
 ## Document
 
-- Github: https://github.com/unikueltd/exception-handler-spring-boot-starter
+- Github: https://github.com/jiovan-labs/exception-handler-spring-boot-starter
 
 ## Requirement
 
@@ -61,12 +61,12 @@ See the `NOTICE.txt` file for required notices and attributions.
 
 ## Donation
 
-You like this package? Then [donate to us](https://unikue.cn/donation) to support the development.
+You like this package? Then [donate to us](https://jiovan.com/donation) to support the development.
 
 ## Copyright
 
-Beijing Unikue Network Technology Ltd.
+Beijing Jiovan Technology Ltd.
 
 ## Website
 
-- Unikue: https://unikue.cn
+- Jiovan: https://jiovan.com
