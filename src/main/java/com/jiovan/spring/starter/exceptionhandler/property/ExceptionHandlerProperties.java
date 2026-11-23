@@ -60,9 +60,9 @@ public class ExceptionHandlerProperties implements Serializable {
     private final ExceptionResolver exceptionResolver = new ExceptionResolver();
 
     /**
-     * Locale change attributes
+     * Localization attributes
      */
-    private final LocaleChange localeChange = new LocaleChange();
+    private final Localization localization = new Localization();
 
     /**
      * Handle application event listener attributes
@@ -151,7 +151,7 @@ public class ExceptionHandlerProperties implements Serializable {
     @Getter
     @Setter
     @ToString
-    public static class LocaleChange implements Serializable {
+    public static class Localization implements Serializable {
         /**
          * Specifies a name for the cookie
          */

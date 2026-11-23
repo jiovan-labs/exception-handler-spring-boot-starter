@@ -30,9 +30,14 @@ jiovan:
                 - '/foo/**'
                 - '/bar/**'
         exception-resolver:
+            charset: UTF-8
             invokable-interceptors:
                 - com.foo.bar
 ```
+
+> The `charset` property controls the character set used to write error response bodies; it defaults to `UTF-8`.
+
+> Spring Boot error attributes are bound under the `spring.web.error` prefix in Spring Boot 4 (for example `spring.web.error.include-message=always`), instead of the `server.error` prefix used in Spring Boot 3. The starter exposes `WebProperties#getError()` as an `ErrorProperties` bean so custom error controllers can inject it.
 
 - This starter supports the most popular template engines, including:
   - Thymeleaf

@@ -44,6 +44,7 @@ import com.jiovan.plexus.common.toolkit.structure.TextStampStruct;
 import com.jiovan.plexus.common.toolkit.util.JdkDateWraps;
 import com.jiovan.plexus.common.toolkit.util.LocalDateWraps;
 import com.jiovan.plexus.common.toolkit.util.MapPlainWraps;
+import com.jiovan.plexus.common.toolkit.util.StringUtilsWraps;
 import com.jiovan.plexus.spring.toolkit.constant.ErrorAttributeConst;
 import com.jiovan.plexus.spring.toolkit.constant.MiscMessageConst;
 import com.jiovan.plexus.spring.toolkit.constant.ResponseBodyConst;
@@ -151,13 +152,13 @@ public class DefaultBasicErrorController extends AbstractBasicErrorController {
         }
         if (!result.containsKey(html ? ResponseBodyConst.HTML_MESSAGE : ResponseBodyConst.REST_MESSAGE)) {
             String attrMessage = MapPlainWraps.getString(attributes, ErrorAttributeConst.MESSAGE);
-            if (StringUtils.isNotBlank(attrMessage) && !StringUtils.equalsIgnoreCase(attrMessage, NO_MESSAGE_AVAILABLE)) {
+            if (StringUtils.isNotBlank(attrMessage) && !StringUtilsWraps.equalsIgnoreCase(attrMessage, NO_MESSAGE_AVAILABLE)) {
                 result.put(html ? ResponseBodyConst.HTML_MESSAGE : ResponseBodyConst.REST_MESSAGE, attrMessage);
             }
         }
         if (options.isIncluded(ErrorAttributeOptions.Include.STACK_TRACE)) {
             MapPlainWraps.removeByKeys(attributes, ErrorAttributeConst.STATUS, ErrorAttributeConst.TIMESTAMP);
-            MapPlainWraps.removeIf(attributes, (key, value) -> StringUtils.equals(key, ErrorAttributeConst.MESSAGE) && value instanceof String && StringUtils.equalsIgnoreCase((String) value, NO_MESSAGE_AVAILABLE));
+            MapPlainWraps.removeIf(attributes, (key, value) -> StringUtilsWraps.equals(key, ErrorAttributeConst.MESSAGE) && value instanceof String && StringUtilsWraps.equalsIgnoreCase((String) value, NO_MESSAGE_AVAILABLE));
             attributes.computeIfAbsent(ErrorAttributeConst.TRACE, key -> ExceptionUtils.getStackTrace(rootCause));
             result.put(html ? ResponseBodyConst.HTML_DATA : ResponseBodyConst.REST_DATA, attributes);
         }

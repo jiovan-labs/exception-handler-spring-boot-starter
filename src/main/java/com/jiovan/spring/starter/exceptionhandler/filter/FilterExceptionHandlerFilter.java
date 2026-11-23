@@ -67,7 +67,7 @@ public class FilterExceptionHandlerFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response, @Nonnull FilterChain chain) {
         try {
             Locale locale = null;
-            ExceptionHandlerProperties.LocaleChange props = handlerProperties.getLocaleChange();
+            ExceptionHandlerProperties.Localization props = handlerProperties.getLocalization();
             if (StringUtils.isNotBlank(props.getSessionName())) {
                 locale = WebUtilsWraps.getLocaleFromSession(request, props.getSessionName());
             }

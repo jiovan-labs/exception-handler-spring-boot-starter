@@ -30,9 +30,14 @@ jiovan:
                 - '/foo/**'
                 - '/bar/**'
         exception-resolver:
+            charset: UTF-8
             invokable-interceptors:
                 - com.foo.bar
 ```
+
+> `charset` 属性用于设置写入错误响应体时使用的字符集，默认为 `UTF-8`。
+
+> Spring Boot 4 中错误属性绑定在 `spring.web.error` 前缀下（例如 `spring.web.error.include-message=always`），而 Spring Boot 3 使用的是 `server.error` 前缀。starter 会将 `WebProperties#getError()` 注册为 `ErrorProperties` Bean，便于自定义错误控制器注入。
 
 - 此 starter 支持主流模板引擎，包括：
   - Thymeleaf

@@ -20,8 +20,11 @@ package com.jiovan.spring.starter.exceptionhandler.config;
 import java.util.Optional;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.Servlet;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
+import org.springframework.boot.autoconfigure.web.ErrorProperties;
+import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -76,6 +79,11 @@ public class ExceptionHandlerAutoConfiguration {
     @Order(value = 0)
     @EnableConfigurationProperties(value = ExceptionHandlerProperties.class)
     static class Entry {
+        @Bean
+        @ConditionalOnMissingBean
+        public ErrorProperties errorProperties(@Nonnull WebProperties webProperties) {
+            return webProperties.getError();
+        }
     }
 
 
@@ -84,7 +92,7 @@ public class ExceptionHandlerAutoConfiguration {
         /**
          * Returns the {@link org.springframework.web.servlet.HandlerExceptionResolver} that renders errors through Thymeleaf views
          *
-         * @param resolver the Thymeleaf view resolver used to render the error view
+         * @param resolvers the provider of the Thymeleaf view resolver used to render the error view
          * @param properties the exception handler properties providing the resolver order
          *
          * @return a {@link com.jiovan.spring.starter.exceptionhandler.resolver.ThymeleafFilterExceptionResolver} with the configured order
@@ -92,9 +100,13 @@ public class ExceptionHandlerAutoConfiguration {
         @Bean(name = EXCEPTION_RESOLVER)
         @ConditionalOnBooleanProperty(prefix = "spring.thymeleaf", name = "enabled", matchIfMissing = true)
         @ConditionalOnClass(name = "org.thymeleaf.Thymeleaf")
-        @ConditionalOnBean(value = ThymeleafViewResolver.class)
+        @ConditionalOnBean(name = "thymeleafViewResolver")
         @ConditionalOnMissingBean(name = EXCEPTION_RESOLVER)
-        public HandlerExceptionResolver thymeleafFilterExceptionResolver(@Nonnull ThymeleafViewResolver resolver, @Nonnull ExceptionHandlerProperties properties) {
+        public HandlerExceptionResolver thymeleafFilterExceptionResolver(@Nonnull ObjectProvider<ThymeleafViewResolver> resolvers, @Nonnull ExceptionHandlerProperties properties) {
+            ThymeleafViewResolver resolver = resolvers.getIfAvailable();
+            if (resolver == null) {
+                return null;
+            }
             AbstractFilterExceptionResolver result = new ThymeleafFilterExceptionResolver(resolver);
             Optional.ofNullable(properties.getExceptionResolver().getResolverOrder()).ifPresent(result::setOrder);
             return result;
@@ -103,7 +115,7 @@ public class ExceptionHandlerAutoConfiguration {
         /**
          * Returns the {@link org.springframework.web.servlet.HandlerExceptionResolver} that renders errors through FreeMarker views
          *
-         * @param resolver the FreeMarker view resolver used to render the error view
+         * @param resolvers the provider of the FreeMarker view resolver used to render the error view
          * @param properties the exception handler properties providing the resolver order
          *
          * @return a {@link com.jiovan.spring.starter.exceptionhandler.resolver.FreeMarkerFilterExceptionResolver} with the configured order
@@ -113,7 +125,11 @@ public class ExceptionHandlerAutoConfiguration {
         @ConditionalOnClass(name = "freemarker.template.Template")
         @ConditionalOnBean(value = FreeMarkerViewResolver.class)
         @ConditionalOnMissingBean(name = EXCEPTION_RESOLVER)
-        public HandlerExceptionResolver freeMarkerFilterExceptionResolver(@Nonnull FreeMarkerViewResolver resolver, @Nonnull ExceptionHandlerProperties properties) {
+        public HandlerExceptionResolver freeMarkerFilterExceptionResolver(@Nonnull ObjectProvider<FreeMarkerViewResolver> resolvers, @Nonnull ExceptionHandlerProperties properties) {
+            FreeMarkerViewResolver resolver = resolvers.getIfAvailable();
+            if (resolver == null) {
+                return null;
+            }
             AbstractFilterExceptionResolver result = new FreeMarkerFilterExceptionResolver(resolver);
             Optional.ofNullable(properties.getExceptionResolver().getResolverOrder()).ifPresent(result::setOrder);
             return result;
@@ -122,7 +138,7 @@ public class ExceptionHandlerAutoConfiguration {
         /**
          * Returns the {@link org.springframework.web.servlet.HandlerExceptionResolver} that renders errors through Groovy markup views
          *
-         * @param resolver the Groovy markup view resolver used to render the error view
+         * @param resolvers the provider of the Groovy markup view resolver used to render the error view
          * @param properties the exception handler properties providing the resolver order
          *
          * @return a {@link com.jiovan.spring.starter.exceptionhandler.resolver.GroovyFilterExceptionResolver} with the configured order
@@ -132,7 +148,11 @@ public class ExceptionHandlerAutoConfiguration {
         @ConditionalOnClass(name = {"groovy.text.Template", "org.codehaus.groovy.tools.GroovyClass"})
         @ConditionalOnBean(value = GroovyMarkupViewResolver.class)
         @ConditionalOnMissingBean(name = EXCEPTION_RESOLVER)
-        public HandlerExceptionResolver groovyFilterExceptionResolver(@Nonnull GroovyMarkupViewResolver resolver, @Nonnull ExceptionHandlerProperties properties) {
+        public HandlerExceptionResolver groovyFilterExceptionResolver(@Nonnull ObjectProvider<GroovyMarkupViewResolver> resolvers, @Nonnull ExceptionHandlerProperties properties) {
+            GroovyMarkupViewResolver resolver = resolvers.getIfAvailable();
+            if (resolver == null) {
+                return null;
+            }
             AbstractFilterExceptionResolver result = new GroovyFilterExceptionResolver(resolver);
             Optional.ofNullable(properties.getExceptionResolver().getResolverOrder()).ifPresent(result::setOrder);
             return result;
@@ -141,17 +161,21 @@ public class ExceptionHandlerAutoConfiguration {
         /**
          * Returns the {@link org.springframework.web.servlet.HandlerExceptionResolver} that renders errors through Mustache views
          *
-         * @param resolver the Mustache view resolver used to render the error view
+         * @param resolvers the provider of the Mustache view resolver used to render the error view
          * @param properties the exception handler properties providing the resolver order
          *
          * @return a {@link com.jiovan.spring.starter.exceptionhandler.resolver.MustacheFilterExceptionResolver} with the configured order
          */
         @Bean(name = EXCEPTION_RESOLVER)
         @ConditionalOnBooleanProperty(prefix = "spring.mustache", name = "enabled", matchIfMissing = true)
-        @ConditionalOnClass(name = "com.samskivert.mustache.Template")
-        @ConditionalOnBean(value = MustacheViewResolver.class)
+        @ConditionalOnClass(name = {"com.samskivert.mustache.Template", "org.springframework.boot.mustache.servlet.view.MustacheViewResolver"})
+        @ConditionalOnBean(name = "mustacheViewResolver")
         @ConditionalOnMissingBean(name = EXCEPTION_RESOLVER)
-        public HandlerExceptionResolver mustacheFilterExceptionResolver(@Nonnull MustacheViewResolver resolver, @Nonnull ExceptionHandlerProperties properties) {
+        public HandlerExceptionResolver mustacheFilterExceptionResolver(@Nonnull ObjectProvider<MustacheViewResolver> resolvers, @Nonnull ExceptionHandlerProperties properties) {
+            MustacheViewResolver resolver = resolvers.getIfAvailable();
+            if (resolver == null) {
+                return null;
+            }
             AbstractFilterExceptionResolver result = new MustacheFilterExceptionResolver(resolver);
             Optional.ofNullable(properties.getExceptionResolver().getResolverOrder()).ifPresent(result::setOrder);
             return result;
@@ -160,7 +184,7 @@ public class ExceptionHandlerAutoConfiguration {
         /**
          * Returns the {@link org.springframework.web.servlet.HandlerExceptionResolver} that renders errors through internal resource views
          *
-         * @param resolver the internal resource view resolver used to render the error view
+         * @param resolvers the provider of the internal resource view resolver used to render the error view
          * @param properties the exception handler properties providing the resolver order
          *
          * @return a {@link com.jiovan.spring.starter.exceptionhandler.resolver.InternalFilterExceptionResolver} with the configured order
@@ -169,7 +193,11 @@ public class ExceptionHandlerAutoConfiguration {
         @ConditionalOnProperty(prefix = "spring.mvc.view", name = "suffix")
         @ConditionalOnBean(value = InternalResourceViewResolver.class)
         @ConditionalOnMissingBean(name = EXCEPTION_RESOLVER)
-        public HandlerExceptionResolver internalFilterExceptionResolver(@Nonnull InternalResourceViewResolver resolver, @Nonnull ExceptionHandlerProperties properties) {
+        public HandlerExceptionResolver internalFilterExceptionResolver(@Nonnull ObjectProvider<InternalResourceViewResolver> resolvers, @Nonnull ExceptionHandlerProperties properties) {
+            InternalResourceViewResolver resolver = resolvers.getIfAvailable();
+            if (resolver == null) {
+                return null;
+            }
             AbstractFilterExceptionResolver result = new InternalFilterExceptionResolver(resolver);
             Optional.ofNullable(properties.getExceptionResolver().getResolverOrder()).ifPresent(result::setOrder);
             return result;
